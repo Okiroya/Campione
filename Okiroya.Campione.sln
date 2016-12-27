@@ -1,0 +1,59 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Okiroya.Campione", "Okiroya.Campione\Okiroya.Campione.xproj", "{D6D2A754-65CF-4D34-BD55-FEA3A4275F16}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{0BFC3522-8EF4-4408-BCEC-186B9D18CD54}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Okiroya.Campione.Tests", "Okiroya.Campione.Tests\Okiroya.Campione.Tests.xproj", "{DC1264B5-4FC1-432C-8292-F2337C5E573A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "campione", "campione", "{0DD562F1-175D-4A5F-A89A-7EADFFD822AF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "campione.dataaccess", "campione.dataaccess", "{7D634A8E-9668-46D3-88CA-5D792ECCAFB0}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Okiroya.Campione.DataAccess.PostgreSql", "Okiroya.Campione.DataAccess.PostgreSql\Okiroya.Campione.DataAccess.PostgreSql.xproj", "{50729DDB-1E9B-488A-B445-FB40B1CEFD3A}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Okiroya.Campione.DataAccess.EntityFrameworkCore", "Okiroya.Campione.DataAccess.EntityFrameworkCore\Okiroya.Campione.DataAccess.EntityFrameworkCore.xproj", "{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Okiroya.Campione.DataAccess.MongoDbCore", "Okiroya.Campione.DataAccess.MongoDbCore\Okiroya.Campione.DataAccess.MongoDbCore.xproj", "{44A43F4B-2EAD-4E72-B858-ACEB59E7D858}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D6D2A754-65CF-4D34-BD55-FEA3A4275F16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6D2A754-65CF-4D34-BD55-FEA3A4275F16}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6D2A754-65CF-4D34-BD55-FEA3A4275F16}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6D2A754-65CF-4D34-BD55-FEA3A4275F16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC1264B5-4FC1-432C-8292-F2337C5E573A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC1264B5-4FC1-432C-8292-F2337C5E573A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC1264B5-4FC1-432C-8292-F2337C5E573A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC1264B5-4FC1-432C-8292-F2337C5E573A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50729DDB-1E9B-488A-B445-FB40B1CEFD3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50729DDB-1E9B-488A-B445-FB40B1CEFD3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50729DDB-1E9B-488A-B445-FB40B1CEFD3A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50729DDB-1E9B-488A-B445-FB40B1CEFD3A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44A43F4B-2EAD-4E72-B858-ACEB59E7D858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A43F4B-2EAD-4E72-B858-ACEB59E7D858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A43F4B-2EAD-4E72-B858-ACEB59E7D858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A43F4B-2EAD-4E72-B858-ACEB59E7D858}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D6D2A754-65CF-4D34-BD55-FEA3A4275F16} = {0DD562F1-175D-4A5F-A89A-7EADFFD822AF}
+		{DC1264B5-4FC1-432C-8292-F2337C5E573A} = {0BFC3522-8EF4-4408-BCEC-186B9D18CD54}
+		{50729DDB-1E9B-488A-B445-FB40B1CEFD3A} = {7D634A8E-9668-46D3-88CA-5D792ECCAFB0}
+		{4360672A-6D5D-4890-A7E9-D6ABEAB7F2C5} = {7D634A8E-9668-46D3-88CA-5D792ECCAFB0}
+		{44A43F4B-2EAD-4E72-B858-ACEB59E7D858} = {7D634A8E-9668-46D3-88CA-5D792ECCAFB0}
+	EndGlobalSection
+EndGlobal
