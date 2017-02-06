@@ -98,7 +98,7 @@ namespace Okiroya.Campione.Service.Cache
             Guard.ArgumentNotEmpty(commandName);
             Guard.ArgumentNotEmpty(cacheKey);
             Guard.ArgumentNotNull(dataLoader);
-            Guard.ArgumentNotNull(dataLoader);
+            Guard.ArgumentNotNull(serializator);
 
             try
             {
@@ -125,8 +125,10 @@ namespace Okiroya.Campione.Service.Cache
 
         public async Task<T> AddOrGetExistingAsync<T>(string commandName, string cacheKey, Func<T> dataLoader, Func<T, byte[]> serializator)
         {
+            Guard.ArgumentNotEmpty(commandName);
             Guard.ArgumentNotEmpty(cacheKey);
             Guard.ArgumentNotNull(dataLoader);
+            Guard.ArgumentNotNull(serializator);
 
             try
             {

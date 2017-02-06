@@ -20,8 +20,11 @@ namespace Okiroya.Campione.DataAccess.MsSql
         /// </summary>
         public MsSqlUtility()
         {
-            TypeMap[typeof(byte).GetTypeInfo()] = SqlDbType.SmallInt;
-            TypeMap[typeof(byte?).GetTypeInfo()] = SqlDbType.SmallInt;
+            TypeMap[typeof(byte).GetTypeInfo()] = SqlDbType.TinyInt;
+            TypeMap[typeof(byte?).GetTypeInfo()] = SqlDbType.TinyInt;
+
+            TypeMap[typeof(short).GetTypeInfo()] = SqlDbType.SmallInt;
+            TypeMap[typeof(short?).GetTypeInfo()] = SqlDbType.SmallInt;
 
             TypeMap[typeof(int).GetTypeInfo()] = SqlDbType.Int;
             TypeMap[typeof(int?).GetTypeInfo()] = SqlDbType.Int;

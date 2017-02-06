@@ -59,9 +59,20 @@ namespace Okiroya.Campione.DataAccess
 
             var result = new Dictionary<string, object>(parameters);
 
-            result.Add(string.Concat(OutParamPrefixName, RowCountParamName), DefaultParamValue<int>());
-            result.Add(PageNumberParamName, page);
-            result.Add(PageSizeParamName, pageSize);
+            if (!result.ContainsKey($"{OutParamPrefixName}{RowCountParamName}"))
+            {
+                result.Add($"{OutParamPrefixName}{RowCountParamName}", DefaultParamValue<int>());
+            }
+
+            if (!result.ContainsKey(PageNumberParamName))
+            {
+                result.Add(PageNumberParamName, page);
+            }
+
+            if (!result.ContainsKey(PageSizeParamName))
+            {
+                result.Add(PageSizeParamName, pageSize);
+            }
 
             return result;
         }
@@ -79,8 +90,15 @@ namespace Okiroya.Campione.DataAccess
 
             var result = new Dictionary<string, object>(parameters);
 
-            result.Add(SortByParamName, sortBy);
-            result.Add(SortDirectionParamName, isAscendingSort);
+            if (!result.ContainsKey(SortByParamName))
+            {
+                result.Add(SortByParamName, sortBy);
+            }
+
+            if (!result.ContainsKey(SortDirectionParamName))
+            {
+                result.Add(SortDirectionParamName, isAscendingSort);
+            }
 
             return result;
         }

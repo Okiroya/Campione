@@ -4,12 +4,29 @@ using System.Collections.Concurrent;
 
 namespace Okiroya.Campione.SystemUtility.DI
 {
+    public abstract class RegisterDependencyContainer
+    {
+        private static ConcurrentDictionary<string, string> _scopes = new ConcurrentDictionary<string, string>();
+
+        internal static ConcurrentDictionary<string, string> Scopes => _scopes;
+
+        public static void RegisterScope(string name, string scope)
+        {
+            Guard.ArgumentNotEmpty(name);
+            Guard.ArgumentNotEmpty(scope);
+
+            _scopes.AddOrUpdate(name, scope, (key, oldValue) => scope);
+        }
+    }
+
     /// <summary>
     /// DI - контейнер
     /// </summary>
     /// <typeparam name="T">Тип контракта, для которого используется DI контейнер</typeparam>
-    public static class RegisterDependencyContainer<T>
+    public class RegisterDependencyContainer<T> : RegisterDependencyContainer
     {
+        private static readonly string All = "*";
+
         private static ConcurrentDictionary<string, T> _cachedInstances = new ConcurrentDictionary<string, T>();
         private static ConcurrentDictionary<string, Func<T>> _cachedFactory = new ConcurrentDictionary<string, Func<T>>();
         private static ConcurrentDictionary<string, T> _defaultServices = new ConcurrentDictionary<string, T>();
@@ -83,7 +100,7 @@ namespace Okiroya.Campione.SystemUtility.DI
             if (factory != null)
             {
                 _cachedFactory.AddOrUpdate(name, factory, (key, oldValue) => factory);
-            }            
+            }
         }
 
         /// <summary>
@@ -128,7 +145,7 @@ namespace Okiroya.Campione.SystemUtility.DI
             {
                 return factory();
             }
-            else if (_defaultFactory.TryGetValue(name, out factory) || _defaultFactory.TryGetValue("*", out factory))
+            else if (_defaultFactory.TryGetValue(name, out factory) || _defaultFactory.TryGetValue(All, out factory))
             {
                 return factory();
             }
@@ -140,7 +157,8 @@ namespace Okiroya.Campione.SystemUtility.DI
                     {
                         T service = default(T);
 
-                        if (!(_defaultServices.TryGetValue(name, out service) || _defaultServices.TryGetValue("*", out service)))
+                        string scope;
+                        if (!(_defaultServices.TryGetValue(Scopes.TryGetValue(name, out scope) ? scope : name, out service) || _defaultServices.TryGetValue(All, out service)))
                         {
                             throw new RegisterDependencyException(string.Concat("Зависимость для типа ", p, " не может быть разрешена"));
                         }
@@ -183,7 +201,7 @@ namespace Okiroya.Campione.SystemUtility.DI
         {
             if (service != null)
             {
-                _defaultServices.AddOrUpdate("*", service, (key, oldValue) => service);
+                _defaultServices.AddOrUpdate(All, service, (key, oldValue) => service);
             }
         }
 
@@ -208,7 +226,7 @@ namespace Okiroya.Campione.SystemUtility.DI
         /// <param name="factory">Регистрируемая фабрика</param>
         public static void SetDefault(Func<T> factory)
         {
-            SetDefault("*", factory);
+            SetDefault(All, factory);
         }
 
         /// <summary>

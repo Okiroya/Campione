@@ -118,7 +118,7 @@ namespace Okiroya.Campione.Service.Dynamic
                     {
                         if (dataMapper != null)
                         {
-                            q = dataMapper.MapTo(q);
+                            q = dataMapper.MapFromDomainNameToRepositoryOne(q);
                         }
 
                         return q;

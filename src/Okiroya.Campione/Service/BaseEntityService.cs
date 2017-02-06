@@ -79,7 +79,7 @@ namespace Okiroya.Campione.Service
 
             return new ServiceResult
             {
-                DataResult = data.Item1.EnumerateDataItems(commandName, ConvertToEntity), //TODO: сделать также как и в типизированном сервисе
+                DataResult = data.Item1.EnumerateDataItems(commandName, parameters, ConvertToEntity), //TODO: сделать также как и в типизированном сервисе
                 OutParameters = data.Item2
             };
         }
@@ -108,7 +108,7 @@ namespace Okiroya.Campione.Service
 
             return new ServiceResult
             {
-                DataResult = data.Item1.EnumerateDataItems(commandName, ConvertToEntity), //TODO: сделать также как и в типизированном сервисе
+                DataResult = data.Item1.EnumerateDataItems(commandName, parameters, ConvertToEntity), //TODO: сделать также как и в типизированном сервисе
                 OutParameters = data.Item2
             };
         }
@@ -130,7 +130,7 @@ namespace Okiroya.Campione.Service
         /// <param name="commandName"></param>
         /// <param name="dataItem"></param>
         /// <returns></returns>
-        protected virtual IEntityObject<int> ConvertToEntity(string commandName, DataItem dataItem)
+        protected virtual IEntityObject<int> ConvertToEntity(string commandName, IDictionary<string, object> parameters, DataItem dataItem)
         {
             return EntityObjectGenerator<int>.CreateEntityObjectFromMeta(commandName, dataItem.Items);
         }

@@ -17,12 +17,14 @@ namespace Okiroya.Campione.DataAccess.Sql
         /// </summary>
         /// <param name="connectionName"></param>
         /// <param name="settings"></param>
-        public DirectSqlDataService(string connectionName, ISqlUtility<TResult> _sqlUtility)
+        public DirectSqlDataService(string connectionName, ISqlUtility<TResult> sqlUtility)
         {
             Guard.ArgumentNotEmpty(connectionName);
-            Guard.ArgumentNotNull(_sqlUtility);
+            Guard.ArgumentNotNull(sqlUtility);
 
             _connectionName = connectionName;
+
+            _sqlUtility = sqlUtility;
         }
 
         public override DataQueryResult ExecuteCommand(string commandName, IDictionary<string, object> parameters = null)

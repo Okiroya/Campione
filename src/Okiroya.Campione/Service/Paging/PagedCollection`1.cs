@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections;
+using Okiroya.Campione.SystemUtility;
 
 namespace Okiroya.Campione.Service.Paging
 {
@@ -29,7 +30,28 @@ namespace Okiroya.Campione.Service.Paging
         /// <param name="source"></param>
         public PagedCollection(IEnumerable<T> source)
         {
+            Guard.ArgumentNotNull(source);
+
             _list = new List<T>(source);
+        }
+
+        /// <summary>
+        /// Конструктор, принимающий инициализирующую коллекцию
+        /// </summary>
+        /// <param name="source"></param>
+        public PagedCollection(PagedCollection<T> source)
+        {
+            Guard.ArgumentNotNull(source);
+
+            _list = new List<T>(source);
+
+            PageIndex = source.PageIndex;
+            PageSize = source.PageSize;
+            TotalCount = source.TotalCount;
+            SortBy = source.SortBy;
+            IsAscendingSort = source.IsAscendingSort;
+            InParams = source.InParams;
+            OutParams = source.OutParams;
         }
 
         #endregion

@@ -10,8 +10,8 @@ namespace Okiroya.Campione.DataAccess
         /// <summary>
         /// Сопоставить поле по наименованию
         /// </summary>
-        /// <param name="sourceName">Наименование сопоставляемого поля</param>
-        /// <returns>Наименование сопоставляющего поля</returns>
-        string MapTo(string sourceName);
+        /// <param name="sourceName">Наименование сопоставляемого поля - доменная сущность</param>
+        /// <returns>Наименование сопоставляющего поля - сущность источника данных</returns>
+        string MapFromDomainNameToRepositoryOne(string sourceName);
     }
 }

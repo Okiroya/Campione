@@ -28,10 +28,10 @@ namespace Okiroya.Campione.Service.Cache
         /// Вернуть значение из кэша, либо добавить в кэш. Кэшируются только результаты выполнения команд на чтение данных
         /// </summary>
         /// <param name="commandName">Наименование команды</param>
-        /// <param name="parameter">Входные параметры</param>
+        /// <param name="parameters">Входные параметры</param>
         /// <param name="dataLoader">Делегат выборки данных из источника данных</param>
         /// <returns>Данные, возвращаемые сервисом доступа к данным</returns>
-        public static T AddOrGetExisting<T>(string commandName, IDictionary<string, object> parameter, Func<T> dataLoader)
+        public static T AddOrGetExisting<T>(string commandName, IDictionary<string, object> parameters, Func<T> dataLoader)
         {
             Guard.ArgumentNotEmpty(commandName);
             Guard.ArgumentNotNull(dataLoader);
@@ -40,7 +40,7 @@ namespace Okiroya.Campione.Service.Cache
 
             var cacheService = RegisterDependencyContainer<ICacheService>.Resolve(commandName);
 
-            string cacheKey = cacheService.GenerateCacheKey(commandName, parameter);
+            string cacheKey = cacheService.GenerateCacheKey(commandName, parameters);
             if (!string.IsNullOrWhiteSpace(cacheKey))
             {
                 UpdateCacheRegister(commandName, cacheKey);
@@ -64,9 +64,9 @@ namespace Okiroya.Campione.Service.Cache
         /// </summary>
         /// <typeparam name="T">Тип возвращаемого значения</typeparam>
         /// <param name="commandName">Наименование команды</param>
-        /// <param name="parameter">Параметры команды</param>
+        /// <param name="parameters">Параметры команды</param>
         /// <returns></returns>
-        public static T Get<T>(string commandName, IDictionary<string, object> parameter)
+        public static T Get<T>(string commandName, IDictionary<string, object> parameters)
         {
             Guard.ArgumentNotEmpty(commandName);
 
@@ -74,7 +74,7 @@ namespace Okiroya.Campione.Service.Cache
 
             var cacheService = RegisterDependencyContainer<ICacheService>.Resolve(commandName);
 
-            string cacheKey = cacheService.GenerateCacheKey(commandName, parameter);
+            string cacheKey = cacheService.GenerateCacheKey(commandName, parameters);
             if (!string.IsNullOrWhiteSpace(cacheKey))
             {
                 result = (T)CacheEntrySerializerFacade.Deserialize(GetTypeMap<T>(), cacheService.GetData(cacheKey));
@@ -91,15 +91,15 @@ namespace Okiroya.Campione.Service.Cache
         /// </remarks>
         /// <typeparam name="T">Тип передаваемого в кэш значения</typeparam>
         /// <param name="commandName">Наименование команды</param>
-        /// <param name="parameter">Параметры команды</param>
+        /// <param name="parameters">Параметры команды</param>
         /// <param name="data">Значение</param>
-        public static void Set<T>(string commandName, IDictionary<string, object> parameter, T data)
+        public static void Set<T>(string commandName, IDictionary<string, object> parameters, T data)
         {
             Guard.ArgumentNotEmpty(commandName);
 
             var cacheService = RegisterDependencyContainer<ICacheService>.Resolve(commandName);
 
-            string cacheKey = cacheService.GenerateCacheKey(commandName, parameter);
+            string cacheKey = cacheService.GenerateCacheKey(commandName, parameters);
             if (!string.IsNullOrWhiteSpace(cacheKey))
             {
                 UpdateCacheRegister(commandName, cacheKey);

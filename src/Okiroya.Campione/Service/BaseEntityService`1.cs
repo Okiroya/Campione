@@ -65,7 +65,7 @@ namespace Okiroya.Campione.Service
 
             return new ServiceResult<TResult, TKey>
             {
-                DataResult = ConvertDataItems(commandName, data.Item1),
+                DataResult = ConvertDataItems(commandName, parameters, data.Item1),
                 OutParameters = data.Item2
             };
         }
@@ -93,7 +93,7 @@ namespace Okiroya.Campione.Service
 
             return new ServiceResult<TResult, TKey>
             {
-                DataResult = ConvertDataItems(commandName, data.Item1),
+                DataResult = ConvertDataItems(commandName, parameters, data.Item1),
                 OutParameters = data.Item2
             };
         }
@@ -115,9 +115,9 @@ namespace Okiroya.Campione.Service
         /// <param name="commandName"></param>
         /// <param name="items"></param>
         /// <returns></returns>
-        protected virtual IEnumerable<TResult> ConvertDataItems(string commandName, IEnumerable<DataItem> items)
+        protected virtual IEnumerable<TResult> ConvertDataItems(string commandName, IDictionary<string, object> parameters, IEnumerable<DataItem> items)
         {
-            return items.EnumerateDataItems(commandName, ConvertToTypedEntity);
+            return items.EnumerateDataItems(commandName, parameters, ConvertToTypedEntity);
         }
 
         /// <summary>
@@ -126,7 +126,7 @@ namespace Okiroya.Campione.Service
         /// <param name="commandName"></param>
         /// <param name="dataItem"></param>
         /// <returns></returns>
-        protected virtual TResult ConvertToTypedEntity(string commandName, DataItem dataItem)
+        protected virtual TResult ConvertToTypedEntity(string commandName, IDictionary<string, object> parameters, DataItem dataItem)
         {
             return EntityObjectGenerator<TKey>.CreateEntityObjectFromMeta<TResult>(dataItem.Items);
         }

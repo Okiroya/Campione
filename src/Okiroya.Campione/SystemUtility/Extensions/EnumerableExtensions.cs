@@ -71,9 +71,22 @@ namespace Okiroya.Campione.SystemUtility.Extensions
         /// <returns></returns>
         public static TResult[] SafeToArray<TResult>(this IEnumerable<TResult> data)
         {
-            return (data != null) && (data.Count() > 0) ?
+            return data != null ?
                 data.ToArray() :
                 new TResult[0];
+        }
+
+        /// <summary>
+        /// Безопасное преобразование перечисления к элементу
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        public static TResult SafeToItem<TResult>(this IEnumerable<TResult> data)
+        {
+            return data != null ?
+                data.FirstOrDefault() :
+                default(TResult);
         }
     }
 }

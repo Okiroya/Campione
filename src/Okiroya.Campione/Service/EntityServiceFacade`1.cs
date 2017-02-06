@@ -212,6 +212,54 @@ namespace Okiroya.Campione.Service
             };
 
             return result;
-        }    
+        }
+
+        /// <summary>
+        /// Выполнить команду, которая возвращает коллекцию сущностей для постраничного доступа
+        /// </summary>
+        /// <param name="commandName">Имя команды</param>
+        /// <param name="page">Номер страницы</param>
+        /// <param name="pageSize">Размер страницы</param>
+        /// <param name="sortBy">Ключ сортировки</param>
+        /// <param name="parameters">Параметры команды</param>
+        /// <param name="paged">Флаг добавления параметров постраничного доступа</param>
+        /// <param name="sortable">Флаг добавления параметров сортировки</param>
+        /// <returns></returns>
+        public static async Task<PagedCollection<TResult>> ExecutePagedQueryAsync(string commandName, IDictionary<string, object> parameters, CancellationToken cancellationToken, int page = 1, int pageSize = 0, string sortBy = null, bool paged = true, bool sortable = true)
+        {
+            var isAscendingSort = !(sortBy ?? string.Empty).EndsWith(ParametersExtensions.RevParamPostfixName, StringComparison.OrdinalIgnoreCase);
+
+            sortBy = (sortBy ?? string.Empty).Replace(ParametersExtensions.RevParamPostfixName, string.Empty);
+
+            pageSize = pageSize > 0 ? pageSize : ParametersExtensions.DefaultPageSize;
+
+            parameters = parameters ?? new Dictionary<string, object>();
+
+            var executedParameters = parameters;
+
+            if (paged)
+            {
+                executedParameters = executedParameters.AddPagedParameters(page, pageSize);
+            }
+            if (sortable)
+            {
+                executedParameters = executedParameters.AddSortedParameters(sortBy, isAscendingSort);
+            }
+
+            var data = await ExecuteTypedQueryAsync(commandName, executedParameters, cancellationToken).ConfigureAwait(false);
+
+            var result = new PagedCollection<TResult>(data.DataResult)
+            {
+                PageIndex = page,
+                PageSize = pageSize,
+                TotalCount = data.OutParameters.GetOutValue<int>(ParametersExtensions.RowCountParamName),
+                SortBy = sortBy,
+                IsAscendingSort = isAscendingSort,
+                InParams = parameters,
+                OutParams = data.OutParameters
+            };
+
+            return result;
+        }
     }
 }
